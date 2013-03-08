@@ -26,21 +26,20 @@ def get_hooks(owner, repo):
 def add_hook(owner, repo, event):
     uri = "https://api.github.com/repos/%s/%s/hooks" % (owner, repo)
     data = {
-        'name': 'web',
-        'config': {
-            'url': gen_callback('/callback/%s' % event),
-            'content_type': 'json',
+        "name": "web",
+        "config": {
+            "url": gen_callback("/callback/%s" % event),
+            "content_type": "json",
         },
-        'events': [event],
+        "events": [event],
     }
     r = requests.post(uri, headers=auth_headers(), data=json.dumps(data))
     print_pretty_json(r.json())
 
 if __name__ == "__main__":
-    owner = "cbhl"
-    repo = "khan-bug-bot"
-    #add_hook(owner, repo, 'issue_comment')
+    #add_hook("cbhl", "khan-bug-bot", "issue_comment")
+    add_hook("Khan", "khan-exercises", "issue_comment")
 
     print "List of hooks:"
-    get_hooks(owner, repo)
+    get_hooks("Khan", "khan-exercises")
 
