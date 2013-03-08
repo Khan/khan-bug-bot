@@ -12,6 +12,7 @@ a = requests.auth.HTTPBasicAuth(secrets.KHANBUGZ_GITHUB_USER,
                                 secrets.KHANBUGZ_GITHUB_PASS)
 
 p = {
+  'scopes': 'repo',
   'note': 'khan-bug-bot',
   'note_url': 'https://github.com/cbhl/khan-bug-bot',
   'client_id': secrets.KHANBUGZ_GITHUB_CLIENT_ID,
