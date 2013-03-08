@@ -4,8 +4,6 @@ import sys
 
 import requests
 
-import secrets
-
 def gen_callback(route):
     return "http://azuresky.myazuresky.com:10277%s" % route
 
