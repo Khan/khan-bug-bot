@@ -58,12 +58,6 @@ def callback():
       u"message": "OK"
   }
 
-  # bail out early if the message is from us
-  # TODO(cbhl): refactor this early bail out
-  if request.json["comment"]["user"]["login"] == "KhanBugz":
-    print "It's just us, silly!"
-    return json.dumps(result)
-
   owner = request.json["repository"]["owner"]["login"]
   repo = request.json["repository"]["name"]
   number = request.json["issue"]["number"]
