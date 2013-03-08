@@ -21,7 +21,7 @@ def auth_headers():
 
 def change_issue_state(owner, repo, number, state):
     uri = "https://api.github.com/repos/%s/%s/issues/%s" % (owner, repo, number)
-    print uri
+    #print uri
     data = {
         "state": state
     }
@@ -30,7 +30,7 @@ def change_issue_state(owner, repo, number, state):
 
 def create_comment(owner, repo, number, body):
     uri = "https://api.github.com/repos/%s/%s/issues/%s/comments" % (owner, repo, number)
-    print uri
+    #print uri
     data = {
         "body": body
     }
@@ -50,9 +50,7 @@ def callback():
 
 @app.route("/callback/issue_comment", methods=["GET", "POST"])
 def callback():
-
-  print json.dumps(request.json, sort_keys=True, indent=4, 
-                   separators=(",", ": "))
+  #pretty_print_json(request.json)
 
   result = {
       u"message": "OK"
@@ -61,8 +59,11 @@ def callback():
   owner = request.json["repository"]["owner"]["login"]
   repo = request.json["repository"]["name"]
   number = request.json["issue"]["number"]
+  
+  print "%s/%s: #%s" % (owner, repo, number)
 
   if ("fixedit" in request.json["comment"]["body"]):
+      print "fixedit"
       create_comment(owner, repo, number,
           """
 We think the problem you reported is fixed.
@@ -72,6 +73,7 @@ If you're still having trouble, please let us know.
 KhanBugz - Your Friendly Khan Academy Problem Robot""")
       change_issue_state(owner, repo, number, "closed")
   elif ("dupeof" in request.json["comment"]["body"]):
+      print "dupeof"
       create_comment(owner, repo, number,
           """
 Thanks for reporting a problem on Khan Academy. We think you have a problem that is similar to one that someone else reported, and we ask that you look at their report to keep track of updates to this problem.
@@ -81,9 +83,11 @@ Please continue to report problems that you experience on the site, as we use th
 KhanBugz - Your Friendly Khan Academy Problem Robot""")
       change_issue_state(owner, repo, number, "closed")
   elif ("notabug" in request.json["comment"]["body"]):
+      print "notabug"
       if ("open" in request.json["issue"]["state"]):
           change_issue_state(owner, repo, number, "closed")
   elif ("realbug" in request.json["comment"]["body"]):
+      print "realbug"
       create_comment(owner, repo, number,
           """
 One of our volunteers or employees will be looking at your problem soon. Hang tight!
