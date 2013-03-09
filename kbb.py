@@ -88,11 +88,6 @@ KhanBugz - Your Friendly Khan Academy Problem Robot""")
           change_issue_state(owner, repo, number, "closed")
   elif ("realbug" in request.json["comment"]["body"]):
       print "realbug"
-      create_comment(owner, repo, number,
-          """
-One of our volunteers or employees will be looking at your problem soon. Hang tight!
-
-KhanBugz - Your Friendly Khan Academy Problem Robot""")
       if ("closed" in request.json["issue"]["state"]):
           change_issue_state(owner, repo, number, "open")
 
