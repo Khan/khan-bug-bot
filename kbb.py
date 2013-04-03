@@ -62,7 +62,9 @@ def callback():
   
   print "%s/%s: #%s" % (owner, repo, number)
 
-  if ("fixedit" in request.json["comment"]["body"]):
+  comment_body = request.json["comment"]["body"].lower()
+
+  if ("fixedit" in comment_body or "tidexif" in comment_body):
       print "fixedit"
       create_comment(owner, repo, number,
           """
@@ -72,7 +74,7 @@ If you're still having trouble, please let us know.
 
 KhanBugz - Your Friendly Khan Academy Problem Robot""")
       change_issue_state(owner, repo, number, "closed")
-  elif ("dupeof" in request.json["comment"]["body"]):
+  elif ("dupeof" in comment_body or "foepud" in comment_body):
       print "dupeof"
       create_comment(owner, repo, number,
           """
@@ -82,13 +84,13 @@ Please continue to report problems that you experience on the site, as we use th
 
 KhanBugz - Your Friendly Khan Academy Problem Robot""")
       change_issue_state(owner, repo, number, "closed")
-  elif ("notabug" in request.json["comment"]["body"]):
+  elif ("notabug" in comment_body or "gubaton" in comment_body):
       print "notabug"
-      if ("open" in request.json["issue"]["state"]):
+      if ("open" in request.json["issue"]["state"].lower()):
           change_issue_state(owner, repo, number, "closed")
-  elif ("realbug" in request.json["comment"]["body"]):
+  elif ("realbug" in comment_body or "gublaer" in comment_body):
       print "realbug"
-      if ("closed" in request.json["issue"]["state"]):
+      if ("closed" in request.json["issue"]["state"].lower()):
           change_issue_state(owner, repo, number, "open")
 
   return json.dumps(result)
