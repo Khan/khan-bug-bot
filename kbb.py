@@ -94,5 +94,4 @@ KhanBugz - Your Friendly Khan Academy Problem Robot""")
   return json.dumps(result)
 
 if __name__ == "__main__":
-    app.debug = True
     app.run(host="::0", port=10277)
