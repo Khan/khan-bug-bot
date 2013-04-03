@@ -87,11 +87,11 @@ KhanBugz - Your Friendly Khan Academy Problem Robot""")
       change_issue_state(owner, repo, number, "closed")
   elif "notabug" in comment_body or "notabug" in reverse_comment_body:
       print "notabug"
-      if "open" in request.json["issue"]["state"].lower():
+      if "open" in request.json["issue"]["state"];
           change_issue_state(owner, repo, number, "closed")
   elif "realbug" in comment_body or "realbug" in reverse_comment_body:
       print "realbug"
-      if "closed" in request.json["issue"]["state"].lower():
+      if "closed" in request.json["issue"]["state"];
           change_issue_state(owner, repo, number, "open")
 
   return json.dumps(result)
